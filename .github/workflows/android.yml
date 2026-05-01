@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: '3.11' # Aligné avec le standard actuel de Buildozer
 
-      - name: Install system dependencies
+- name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -34,7 +34,8 @@ jobs:
             libavformat-dev \
             libavcodec-dev \
             zlib1g-dev \
-            libgstreamer1.0-gstreamer-lite-dev \
+            libgstreamer1.0-dev \
+            gstreamer1.0-plugins-base-apps \
             libgstreamer-plugins-base1.0-dev \
             libffi-dev \
             libssl-dev \
@@ -44,7 +45,7 @@ jobs:
             libtool \
             pkg-config \
             cmake
-
+            
       - name: Install Buildozer and Cython
         run: |
           pip install --upgrade pip
