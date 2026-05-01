@@ -15,9 +15,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # Aligné avec le standard actuel de Buildozer
+          python-version: '3.11'
 
-- name: Install system dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -45,17 +45,16 @@ jobs:
             libtool \
             pkg-config \
             cmake
-            
+
       - name: Install Buildozer and Cython
         run: |
           pip install --upgrade pip
-          pip install "cython<3.0.0" buildozer # Cython < 3.0 est souvent plus stable pour Kivy
+          pip install "cython<3.0.0" buildozer
 
       - name: Build with Buildozer
         uses: digreatbrian/buildozer-action@v2
         with:
           buildozer-cmd: buildozer -v android debug
-          # On laisse l'action gérer le cache du SDK/NDK pour accélérer les futurs builds
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
