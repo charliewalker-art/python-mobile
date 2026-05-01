@@ -1,4 +1,5 @@
 [app]
+
 # (Obligatoire) Titre de ton application
 title = Secure Node
 
@@ -17,15 +18,17 @@ version = 0.1
 # Fichiers à inclure
 source.include_exts = py,png,jpg,kv,atlas
 
-# Dépendances (standard + chiffrement + mqtt)
-requirements = python3,kivy,cryptography,paho-mqtt
+# Dépendances corrigées :
+# - kivy==2.3.0 pour la stabilité
+# - openssl est requis pour compiler cryptography sur Android
+requirements = python3,kivy==2.3.0,cryptography,paho-mqtt,openssl
 
 # Orientation et permissions
 orientation = portrait
 android.permissions = INTERNET, ACCESS_NETWORK_STATE
 
 # --- Configuration Android ---
-# Autorise Buildozer à accepter les licences SDK automatiquement (Indispensable pour GitHub Actions)
+# Autorise Buildozer à accepter les licences SDK automatiquement
 android.accept_sdk_license = True
 
 # Utilisation d'une version stable de l'API
@@ -33,6 +36,10 @@ android.api = 34
 android.sdk_build_tools_revision = 34.0.0
 android.minapi = 21
 android.ndk = 25b
+android.ndk_api = 21
+
+# Architecture cible : arm64-v8a est le standard moderne (plus stable sur GitHub Actions)
+android.archs = arm64-v8a
 
 # Réglage pour le clavier Android
 android.window_softinput_mode = resize

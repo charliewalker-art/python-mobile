@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    # On utilise Ubuntu 22.04 pour garantir la compatibilité des outils de compilation
     runs-on: ubuntu-22.04
 
     steps:
@@ -16,23 +15,49 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: '3.11' # Aligné avec le standard actuel de Buildozer
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libtinfo5 libncurses5
+          sudo apt-get install -y \
+            build-essential \
+            git \
+            python3-dev \
+            ffmpeg \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libportmidi-dev \
+            libswscale-dev \
+            libavformat-dev \
+            libavcodec-dev \
+            zlib1g-dev \
+            libgstreamer1.0-gstreamer-lite-dev \
+            libgstreamer-plugins-base1.0-dev \
+            libffi-dev \
+            libssl-dev \
+            libtinfo5 \
+            autoconf \
+            automake \
+            libtool \
+            pkg-config \
+            cmake
+
+      - name: Install Buildozer and Cython
+        run: |
           pip install --upgrade pip
-          pip install buildozer cython
+          pip install "cython<3.0.0" buildozer # Cython < 3.0 est souvent plus stable pour Kivy
 
       - name: Build with Buildozer
         uses: digreatbrian/buildozer-action@v2
         with:
-          python-version: 3.9
           buildozer-cmd: buildozer -v android debug
+          # On laisse l'action gérer le cache du SDK/NDK pour accélérer les futurs builds
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: secure-node-apk
-          path: ./bin/*.apk
+          path: bin/*.apk
