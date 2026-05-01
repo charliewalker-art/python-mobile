@@ -34,12 +34,10 @@ jobs:
             libavformat-dev \
             libavcodec-dev \
             zlib1g-dev \
-            libgstreamer1.0-dev \
-            gstreamer1.0-plugins-base-apps \
-            libgstreamer-plugins-base1.0-dev \
             libffi-dev \
             libssl-dev \
             libtinfo5 \
+            libunwind-dev \
             autoconf \
             automake \
             libtool \
