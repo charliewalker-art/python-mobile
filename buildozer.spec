@@ -8,7 +8,7 @@ package.name = securenode
 # (Obligatoire) Domaine du package
 package.domain = org.eni
 
-# (Obligatoire) Où se trouve le code source (le point indique le dossier courant)
+# (Obligatoire) Où se trouve le code source
 source.dir = .
 
 # (Obligatoire) Version de l'application
@@ -17,21 +17,27 @@ version = 0.1
 # Fichiers à inclure
 source.include_exts = py,png,jpg,kv,atlas
 
-# Dépendances (Inclus cryptography et paho-mqtt comme vu dans ton code)
+# Dépendances (standard + chiffrement + mqtt)
 requirements = python3,kivy,cryptography,paho-mqtt
 
-# Orientation de l'écran
+# Orientation et permissions
 orientation = portrait
-
-# Permissions Android
 android.permissions = INTERNET, ACCESS_NETWORK_STATE
 
-# Réglage pour le clavier
+# --- Configuration Android ---
+# Autorise Buildozer à accepter les licences SDK automatiquement (Indispensable pour GitHub Actions)
+android.accept_sdk_license = True
+
+# Utilisation d'une version stable de l'API
+android.api = 34
+android.sdk_build_tools_revision = 34.0.0
+android.minapi = 21
+android.ndk = 25b
+
+# Réglage pour le clavier Android
 android.window_softinput_mode = resize
 
-# (Optionnel) Icône de l'application
-# icon.filename = %(source.dir)s/icon.png
-
 [buildozer]
-# Niveau de log (2 pour plus de détails)
+# Niveau de log (2 pour voir les erreurs de compilation en détail)
 log_level = 2
+warn_on_root = 1
